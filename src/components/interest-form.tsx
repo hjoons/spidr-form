@@ -21,6 +21,9 @@ const initialFormData: FormData = {
 const InterestForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+  const [validationErrors, setValidationErrors] = useState<{
+    [key: string]: string;
+  }>({});
 
   const formatPhoneNumber = (value: string) => {
     const digits = value.replace(/\D/g, "");
@@ -37,8 +40,13 @@ const InterestForm: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
+    // Clear validation errors when user starts typing
+    if (validationErrors[name]) {
+      setValidationErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+
     if (name === "spidrPin") {
-      // Format SPIDR PIN as ####-####-####-####
+      // Format Spidr PIN as ####-####-####-####
       const digitsOnly = value.replace(/\D/g, "");
       const formatted = digitsOnly.replace(/(\d{4})(?=\d)/g, "$1-");
       setFormData({ ...formData, [name]: formatted });
@@ -62,6 +70,28 @@ const InterestForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Validation checks
+    const newValidationErrors: { [key: string]: string } = {};
+
+    // Phone number validation (should be exactly 14 characters: (555) 555-5555)
+    if (formData.phoneNumber.length !== 14) {
+      newValidationErrors.phoneNumber =
+        "Phone number must be complete (10 digits)";
+    }
+
+    // Spidr PIN validation (should be exactly 19 characters: 1234-5678-9012-3456)
+    if (formData.spidrPin.length !== 19) {
+      newValidationErrors.spidrPin = "Spidr PIN must be complete (16 digits)";
+    }
+
+    setValidationErrors(newValidationErrors);
+
+    // If there are validation errors, don't submit
+    if (Object.keys(newValidationErrors).length > 0) {
+      return;
+    }
+
     console.log("Form submitted:", formData);
     setIsSubmitted(true);
   };
@@ -135,13 +165,18 @@ const InterestForm: React.FC = () => {
               id="phoneNumber"
               name="phoneNumber"
               type="tel"
-              className="spidr-form-input"
+              className={`spidr-form-input ${validationErrors.phoneNumber ? "error" : ""}`}
               value={formData.phoneNumber}
               onChange={handleChange}
               placeholder="(555) 555-5555"
               maxLength={14}
               required
             />
+            {validationErrors.phoneNumber && (
+              <div className="spidr-form-error">
+                {validationErrors.phoneNumber}
+              </div>
+            )}
           </div>
 
           <div className="spidr-form-group">
@@ -185,13 +220,18 @@ const InterestForm: React.FC = () => {
             <input
               id="spidrPin"
               name="spidrPin"
-              className="spidr-form-input"
+              className={`spidr-form-input ${validationErrors.spidrPin ? "error" : ""}`}
               value={formData.spidrPin}
               onChange={handleChange}
               placeholder="1234-5678-9012-3456"
               maxLength={19}
               required
             />
+            {validationErrors.spidrPin && (
+              <div className="spidr-form-error">
+                {validationErrors.spidrPin}
+              </div>
+            )}
           </div>
 
           <button type="submit" className="spidr-form-button">

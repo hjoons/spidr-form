@@ -1,6 +1,6 @@
-/* SPIDR-inspired Form Styling */
+/* Spidr-inspired Form Styling */
 
-/* Import Raleway font (same as SPIDR) */
+/* Import Raleway font (same as Spidr) */
 @import url("https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,700");
 
 /* CSS Reset to remove default browser margins/padding */
@@ -39,7 +39,7 @@ body {
 .spidr-form-card {
   background-color: var(--spidr-overlay);
   border: 1px solid var(--spidr-primary);
-  border-radius: 0 !important; /* SPIDR uses sharp corners */
+  border-radius: 0 !important; /* Spidr uses sharp corners */
   box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
   color: #fff;
   max-width: 500px;
@@ -59,7 +59,7 @@ body {
   pointer-events: none;
 }
 
-/* Typography matching SPIDR */
+/* Typography matching Spidr */
 .spidr-form-title {
   font-weight: 200 !important;
   margin: 0 0 20px 0;
@@ -86,7 +86,7 @@ body {
   font-size: 16px;
 }
 
-/* Form styling matching SPIDR's .form-capture */
+/* Form styling matching Spidr's .form-capture */
 .spidr-form-group {
   margin-bottom: 25px;
 }
@@ -130,7 +130,7 @@ body {
   font-weight: 300;
 }
 
-/* Autofill styling to maintain SPIDR design */
+/* Autofill styling to maintain Spidr design */
 .spidr-form-input:-webkit-autofill,
 .spidr-form-input:-webkit-autofill:hover,
 .spidr-form-input:-webkit-autofill:focus,
@@ -188,7 +188,7 @@ body {
   gap: 20px;
 }
 
-/* Button styling matching SPIDR's .btn-line */
+/* Button styling matching Spidr's .btn-line */
 .spidr-form-button {
   background-color: transparent !important;
   border: 1px solid #fff !important;
@@ -211,6 +211,39 @@ body {
   color: var(--spidr-secondary) !important;
 }
 
+/* Error State Styling */
+.spidr-form-input.error {
+  border-color: #ff4444 !important;
+  box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.3) !important;
+}
+
+.spidr-form-input.error:focus {
+  border-color: #ff4444 !important;
+  box-shadow: 0 0 0 2px rgba(255, 68, 68, 0.5) !important;
+}
+
+/* Error Message Styling */
+.spidr-form-error {
+  color: #ff4444;
+  font-size: 14px;
+  font-weight: 300;
+  margin-top: 5px;
+  font-family: "Raleway", sans-serif;
+  opacity: 0;
+  animation: fadeInError 0.3s ease-in-out forwards;
+}
+
+@keyframes fadeInError {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .spidr-form-row {
@@ -228,7 +261,7 @@ body {
   }
 }
 
-/* Animation effects inspired by SPIDR */
+/* Animation effects inspired by Spidr */
 .spidr-form-card {
   animation: fadeInUp 0.6s ease-out;
 }
@@ -244,7 +277,7 @@ body {
   }
 }
 
-/* Add subtle background pattern similar to SPIDR */
+/* Add subtle background pattern similar to Spidr */
 .spidr-form-container::before {
   content: "";
   position: fixed;
