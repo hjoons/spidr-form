@@ -1,14 +1,4 @@
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
 type FormData = {
   firstName: string;
@@ -55,6 +45,15 @@ const InterestForm: React.FC = () => {
       // Format phone number as (###) ###-####
       const formatted = formatPhoneNumber(value);
       setFormData({ ...formData, [name]: formatted });
+    } else if (name === "guess") {
+      // Prevent more than 2 decimal places for currency
+      const decimalRegex = /^\d*\.?\d{0,2}$/;
+      if (decimalRegex.test(value) || value === "") {
+        // Allow empty string to clear the field, otherwise parse as number
+        const numericValue = value === "" ? 0 : parseFloat(value);
+        setFormData({ ...formData, [name]: numericValue });
+      }
+      // If it doesn't match the pattern, don't update the state (prevents typing)
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -66,33 +65,38 @@ const InterestForm: React.FC = () => {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto">
-      <CardHeader>
-        <CardTitle>Interest Form</CardTitle>
-        <CardDescription>
+    <div className="spidr-form-container">
+      <div className="spidr-form-card">
+        <h1 className="spidr-form-title">Interest Form</h1>
+        <p className="spidr-form-description">
           Fill out this form to show your interest and guess the air fryer's
           cost!
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="firstName">First Name</Label>
-              <Input
+        </p>
+
+        <form onSubmit={handleSubmit}>
+          <div className="spidr-form-row">
+            <div className="spidr-form-group">
+              <label htmlFor="firstName" className="spidr-form-label">
+                First Name
+              </label>
+              <input
                 id="firstName"
                 name="firstName"
+                className="spidr-form-input"
                 value={formData.firstName}
                 onChange={handleChange}
                 placeholder="Enter your first name"
                 required
               />
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="lastName">Last Name</Label>
-              <Input
+            <div className="spidr-form-group">
+              <label htmlFor="lastName" className="spidr-form-label">
+                Last Name
+              </label>
+              <input
                 id="lastName"
                 name="lastName"
+                className="spidr-form-input"
                 value={formData.lastName}
                 onChange={handleChange}
                 placeholder="Enter your last name"
@@ -101,26 +105,32 @@ const InterestForm: React.FC = () => {
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="phoneNumber">Phone Number</Label>
-            <Input
+          <div className="spidr-form-group">
+            <label htmlFor="phoneNumber" className="spidr-form-label">
+              Phone Number
+            </label>
+            <input
               id="phoneNumber"
               name="phoneNumber"
               type="tel"
+              className="spidr-form-input"
               value={formData.phoneNumber}
               onChange={handleChange}
-              placeholder="(555) 123-4567"
+              placeholder="(555) 555-5555"
               maxLength={14}
               required
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="email">Email Address</Label>
-            <Input
+          <div className="spidr-form-group">
+            <label htmlFor="email" className="spidr-form-label">
+              Email Address
+            </label>
+            <input
               id="email"
               name="email"
               type="email"
+              className="spidr-form-input"
               value={formData.email}
               onChange={handleChange}
               placeholder="your.email@example.com"
@@ -128,13 +138,16 @@ const InterestForm: React.FC = () => {
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="guess">Guess the Air Fryer's Cost ($)</Label>
-            <Input
+          <div className="spidr-form-group">
+            <label htmlFor="guess" className="spidr-form-label">
+              Guess the Air Fryer's Cost ($)
+            </label>
+            <input
               id="guess"
               name="guess"
               type="number"
-              value={formData.guess}
+              className="spidr-form-input"
+              value={formData.guess === 0 ? "" : formData.guess}
               onChange={handleChange}
               placeholder="Enter your guess"
               min="0"
@@ -143,11 +156,14 @@ const InterestForm: React.FC = () => {
             />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="spidrPin">SPIDR Pin (16 digits)</Label>
-            <Input
+          <div className="spidr-form-group">
+            <label htmlFor="spidrPin" className="spidr-form-label">
+              SPIDR Pin (16 digits)
+            </label>
+            <input
               id="spidrPin"
               name="spidrPin"
+              className="spidr-form-input"
               value={formData.spidrPin}
               onChange={handleChange}
               placeholder="1234-5678-9012-3456"
@@ -156,12 +172,12 @@ const InterestForm: React.FC = () => {
             />
           </div>
 
-          <Button type="submit" className="w-full">
+          <button type="submit" className="spidr-form-button">
             Submit Form
-          </Button>
+          </button>
         </form>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 

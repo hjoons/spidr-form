@@ -1,0 +1,267 @@
+/* SPIDR-inspired Form Styling */
+
+/* Import Raleway font (same as SPIDR) */
+@import url("https://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,700");
+
+/* CSS Reset to remove default browser margins/padding */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Spidr Color Variables */
+:root {
+  --spidr-primary: #479daf;
+  --spidr-secondary: #56acbd;
+  --spidr-dark: #252627;
+  --spidr-border-gray: #999;
+  --spidr-text-light: #ccc;
+  --spidr-overlay: rgba(71, 157, 175, 0.9);
+}
+
+/* Base style matching Spidr */
+.spidr-form-container {
+  font-family: "Raleway", sans-serif !important;
+  background-color: var(--spidr-dark);
+  min-height: 100vh;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  padding: 50px 20px;
+}
+
+/* Form card styling inspired by Spidr's content containers */
+.spidr-form-card {
+  background-color: var(--spidr-overlay);
+  border: 1px solid var(--spidr-primary);
+  border-radius: 0 !important; /* SPIDR uses sharp corners */
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.1);
+  color: #fff;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 30px;
+  position: relative;
+}
+
+.spidr-form-card::before {
+  content: "";
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  bottom: 15px;
+  left: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  pointer-events: none;
+}
+
+/* Typography matching SPIDR */
+.spidr-form-title {
+  font-weight: 200 !important;
+  margin: 0 0 20px 0;
+  font-size: 2em;
+  text-align: center;
+  color: #fff;
+}
+
+.spidr-form-title::after {
+  content: "";
+  width: 120px;
+  display: block;
+  background: var(--spidr-primary);
+  height: 2px;
+  margin: 15px auto 0;
+  line-height: 1.1;
+}
+
+.spidr-form-description {
+  color: #b9bdc2;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 300;
+  font-size: 16px;
+}
+
+/* Form styling matching SPIDR's .form-capture */
+.spidr-form-group {
+  margin-bottom: 25px;
+}
+
+.spidr-form-label {
+  color: var(--spidr-text-light);
+  font-size: 16px;
+  font-weight: 300;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.spidr-form-input {
+  border: none !important;
+  padding: 12px 0;
+  background-color: transparent !important;
+  color: #fff !important;
+  font-size: 16px;
+  font-weight: 300;
+  border-bottom: 2px solid var(--spidr-border-gray) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  width: 100%;
+  transition:
+    border-color 0.5s ease,
+    box-shadow 0.5s ease;
+  font-family: "Raleway", sans-serif;
+}
+
+.spidr-form-input:focus {
+  border-bottom-color: var(--spidr-primary) !important;
+  outline: none;
+  box-shadow: 0 1px 0 0 var(--spidr-primary);
+  transition:
+    border-color 0.5s ease,
+    box-shadow 0.5s ease;
+}
+
+.spidr-form-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 300;
+}
+
+/* Autofill styling to maintain SPIDR design */
+.spidr-form-input:-webkit-autofill,
+.spidr-form-input:-webkit-autofill:hover,
+.spidr-form-input:-webkit-autofill:focus,
+.spidr-form-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px var(--spidr-overlay) inset !important;
+  -webkit-text-fill-color: #fff !important;
+  background-color: transparent !important;
+  border-bottom: 2px solid var(--spidr-border-gray) !important;
+  transition:
+    background-color 5000s ease-in-out 0s,
+    border-color 0.5s ease !important;
+  font-family: "Raleway", sans-serif !important;
+  font-weight: 300 !important;
+}
+
+.spidr-form-input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px var(--spidr-overlay) inset !important;
+  border-bottom-color: var(--spidr-primary) !important;
+  transition:
+    background-color 5000s ease-in-out 0s,
+    border-color 0.5s ease !important;
+}
+
+/* Firefox autofill styling */
+.spidr-form-input:-moz-autofill {
+  background-color: var(--spidr-overlay) !important;
+  color: #fff !important;
+  border-bottom: 2px solid var(--spidr-border-gray) !important;
+  font-family: "Raleway", sans-serif !important;
+  font-weight: 300 !important;
+  transition: border-color 0.5s ease !important;
+}
+
+.spidr-form-input:-moz-autofill:focus {
+  border-bottom-color: var(--spidr-primary) !important;
+  transition: border-color 0.5s ease !important;
+}
+
+/* Hide number input arrows/spinners */
+.spidr-form-input[type="number"]::-webkit-outer-spin-button,
+.spidr-form-input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.spidr-form-input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Two-column grid for name fields */
+.spidr-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Button styling matching SPIDR's .btn-line */
+.spidr-form-button {
+  background-color: transparent !important;
+  border: 1px solid #fff !important;
+  border-radius: 0 !important;
+  color: #fff !important;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 300;
+  font-family: "Raleway", sans-serif;
+  margin-top: 20px;
+  width: 100%;
+  transition: all 0.25s ease;
+  cursor: pointer;
+}
+
+.spidr-form-button:hover,
+.spidr-form-button:focus {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+  border: 1px solid var(--spidr-secondary) !important;
+  color: var(--spidr-secondary) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .spidr-form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .spidr-form-card {
+    padding: 20px;
+    margin: 0 10px;
+  }
+
+  .spidr-form-title {
+    font-size: 1.8em;
+  }
+}
+
+/* Animation effects inspired by SPIDR */
+.spidr-form-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add subtle background pattern similar to SPIDR */
+.spidr-form-container::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(
+      circle at 20% 80%,
+      rgba(71, 157, 175, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(71, 157, 175, 0.1) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+  z-index: -1;
+}
