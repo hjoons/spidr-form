@@ -20,6 +20,7 @@ const initialFormData: FormData = {
 
 const InterestForm: React.FC = () => {
   const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
   const formatPhoneNumber = (value: string) => {
     const digits = value.replace(/\D/g, "");
@@ -62,9 +63,30 @@ const InterestForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
+    setIsSubmitted(true);
   };
 
-  return (
+  return isSubmitted ? (
+    <div className="spidr-form-container">
+      <div className="spidr-form-card">
+        <h1 className="spidr-form-title">Thank You! 🎉</h1>
+        <div style={{ textAlign: "center", marginBottom: "20px" }}>
+          <img
+            src="https://media1.tenor.com/m/ijLGljdt9BAAAAAd/are-you-trying-to-recruit-me-recruit.gif"
+            alt="Success celebration"
+            style={{
+              maxWidth: "100%",
+              height: "auto",
+              borderRadius: "8px",
+            }}
+          />
+        </div>
+        <p className="spidr-form-description">
+          Your submission has been received! We'll be in touch soon.
+        </p>
+      </div>
+    </div>
+  ) : (
     <div className="spidr-form-container">
       <div className="spidr-form-card">
         <h1 className="spidr-form-title">Interest Form</h1>
